@@ -1,5 +1,5 @@
 // actions to be imported here
-import { ADD_TODO } from '../actions';
+import { ADD_TODO, TOGGLE_TODO } from '../actions';
 
 const initialState = {
   todos: [
@@ -30,9 +30,13 @@ const reducer = (state = initialState, action) => {
           }
         ]
       }
+    case TOGGLE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo, index) => action.payload === index ? {...todo, completed: !todo.completed} : todo)
+      }
     default:
       return state;
-      // throw new Error(`Error, action type invalid: ${action.type}`) // will be used when cases have been created
   }
 }
 
